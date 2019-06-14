@@ -1,0 +1,87 @@
+<div class="container">
+
+  <div class="class row mx-auto text-center py-3">
+
+    <div class="col-md-6 mx-auto mt-3">
+
+      <mdb-card class="card">
+
+        <mdb-card-body class="card-body p-5">
+
+          <p class="h4 mb-2">Register</p>
+
+          <form class="p-3" name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" novalidate>
+
+            <!-- E-mail -->
+            <div class="md-form">
+
+              <input type="email" class="form-control mb-4" name="email" [(ngModel)]="form.email" #email="ngModel"
+                placeholder="E-mail" required>
+
+              <div *ngIf="f.submitted && email.invalid">
+                <div *ngIf="email.errors.required" class="forgot">Email is required</div>
+                <div *ngIf="email.errors.email" class="forgot">Email must be a valid email address</div>
+              </div>
+
+            </div>
+
+            <!-- Username -->
+            <div class="md-form">
+
+              <input type="text" class="form-control mb-4" name="username" [(ngModel)]="form.username" minlength="3"
+                #username="ngModel" aria-describedby="defaultRegisterFormPasswordHelpBlock" placeholder="Username"
+                required>
+
+                <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                  At least 3 characters
+                </small>
+
+              <div *ngIf="f.submitted && username.invalid">
+                <div *ngIf="username.errors.required" class="forgot">Username is required</div>
+                <div *ngIf="password.errors.minlength" class="forgot">Username must be at least 3 characters</div>
+              </div>
+
+            </div>
+            
+            <!-- Password -->
+            <div class="md-form">
+
+              <input type="password" class="form-control" name="password" [(ngModel)]="form.password" minlength="6"
+                #password="ngModel" aria-describedby="defaultRegisterFormPasswordHelpBlock" placeholder="Password"
+                required>
+              <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                At least 6 characters
+              </small>
+
+              <div *ngIf="f.submitted && password.invalid">
+                <div *ngIf="password.errors.required" class="forgot">Password is required</div>
+                <div *ngIf="password.errors.minlength" class="forgot">Password must be at least 6 characters</div>
+              </div>
+              
+            </div>
+
+
+            <!-- Sign up button -->
+            <button mdbBtn color="info" block="true" class="my-4 btn" type="submit">Register</button>
+
+            <hr>
+
+            <!-- Terms of service -->
+            <p>By clicking
+              <em>Sign up</em> you agree to our
+              <a class="forgot" href="" target="_blank">terms of service</a>.
+              If you have a account <a class="forgot" routerLink="../login">Sign in</a>.</p>
+
+          </form>
+        
+
+        </mdb-card-body>
+
+      </mdb-card>
+
+
+    </div>
+
+  </div>
+
+</div>

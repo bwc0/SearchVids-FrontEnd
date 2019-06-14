@@ -1,0 +1,150 @@
+<div *ngIf="id; else signin" class="container mt-3">
+  
+  <div class="row mx-auto py-4">
+
+    <div class="col-md-5 mt-3">
+
+        <mdb-card class="card">
+
+          <mdb-card-body class="card-body">
+
+            <div class="text-center">
+
+              <div class="avatar" style="margin-top: -60px">
+
+                <img src="https://www.gravatar.com/avatar/96ab8d17af991061093921a6ff3df958"
+                  class="rounded-circle z-depth-0" alt="avatar-image">
+
+              </div>
+
+              <h3 class="mt-4"> {{ user?.username }} </h3>
+
+              <button class="my-4 btn w-75" (click)="logout()" mdbBtn>
+
+                <i class="fa fa-sign-out"></i>
+
+                Logout
+
+              </button>
+
+            </div>
+
+          </mdb-card-body>
+
+        </mdb-card>
+
+    </div>
+
+    <div class="col-md-7 mt-3">
+
+      <mdb-card class="card">
+
+        <mdb-card-body class="card-body p-5">
+
+          <p class="h4 mb-4 text-center">Edit profile</p>
+
+          <form #f="ngForm" name="form" class="px-2" (ngSubmit)="f.form.valid && onSubmit()" novalidate>
+
+            <div class="md-form">
+
+              <input name="username" type="text" [(ngModel)]="form.username" #username="ngModel"
+                class="form-control mb-4" minlength="3" placeholder="{{ user?.username }}">
+
+              <div *ngIf="f.submitted && username.invalid">
+
+                <div *ngIf="username.errors.minlength" class="forgot">Username must be at least 3 characters</div>
+
+              </div>
+
+            </div>
+
+             <div class="md-form">
+
+                <input type="password" class="form-control my-4" name="password" [(ngModel)]="form.password"
+
+                  #password="ngModel" minlength="6" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+
+                <div *ngIf="f.submitted && password.invalid">
+                  <div *ngIf="password.errors.minlength" class="forgot">Password must be at least 6 characters</div>
+                </div>
+
+             </div>
+
+             <div class="text-center">
+
+               <button mdbBtn class="my-4 btn w-75" type="submit"> Update </button>
+
+             </div>
+
+          </form>
+
+        </mdb-card-body>
+
+      </mdb-card>
+
+    </div>
+
+  </div>
+
+  <div class="row mx-auto">
+
+    <div class="col-md-4" *ngFor="let video of user?.videos">
+
+      <mdb-card cascade="true" wider="true" class="my-2">
+
+        <div class="view view-cascade overlay waves-light" mdbWavesEffect>
+
+          <mdb-card-img src="{{ video.thumbnail }}"></mdb-card-img>
+
+          <a data-fancybox data-type="iframe" href="http://youtube.com/embed/{{video.videoId}}">
+
+            <div class="mask rgba-white-slight"></div>
+
+          </a>
+
+        </div>
+
+        <mdb-card-body cascade="true" class="text-center pb-0">
+    
+          <h4 class="card-title">
+
+            <strong>{{ video.title }}</strong>
+
+          </h4>
+          <h5 class="indigo-text">
+
+            <strong>{{ video.channelTitle }}</strong>
+
+          </h5>
+
+          <mdb-card-text>
+            {{ video.description }}
+          </mdb-card-text>
+
+          <!-- Card footer -->
+          <!-- <div class="card-footer text-muted text-center mt-4">
+            2 days ago
+          </div> -->
+
+
+        </mdb-card-body>
+
+      </mdb-card>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<ng-template #signin>
+
+  <div class="container mt-5">
+    <h1>Please sign in <a class="forgot" routerLink="../login">here</a> or 
+      sign up <a class="forgot" routerLink="../register">here</a>.</h1>
+  </div>
+
+</ng-template>
+
+

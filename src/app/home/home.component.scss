@@ -1,0 +1,50 @@
+.container.search {
+    margin: 0 0 0 10%;
+}
+
+.form-inline {
+  margin-bottom: 0%;
+}
+
+.active-pink-2 input[type=text] {
+  font-size: 1.5em;
+  padding-left: .5%;
+}
+
+.active-pink-2 input[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid darkred;
+  box-shadow: 0 1px 0 0 darkred;
+}
+
+button#searchbutton.btn {
+  box-shadow: none;
+  padding-left: 5px;
+}
+
+.active-pink-2 .fa {
+  color:black;
+}
+
+.col-md-4.videocolumn {
+  margin-top: 2%;
+}
+
+#mainbuttondiv {
+  margin-top: 20%;
+}
+
+#prev {
+  margin-left: 5%;
+  float: left;
+}
+
+#next {
+  margin-right: 5%;
+  float: right;
+}
+
+.mt-2.btn {
+  background: linear-gradient(to right, #8b0000 15%, #990000 58%);
+  color: white;
+}
+

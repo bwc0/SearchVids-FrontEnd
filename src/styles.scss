@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+.container.form {
+  width: 45%;
+}
+
+.forgot {
+  color: #8B0000;
+}
+
+.indigo-text strong {
+  color: darkred;
+}
+
+.my-4.btn {
+  background: linear-gradient(to right, #8b0000 15%, #990000 58%);
+  color: white;
+}
