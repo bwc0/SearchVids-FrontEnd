@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class YoutubeService {
 
   readonly url = 'https://www.googleapis.com/youtube/v3/search';
-  readonly key = 'AIzaSyDmdpffcCLkvsJLCpgdhxQJpq9oI77aT9Q'
+  readonly key = 'GOOGLE API KEY'
 
   params: HttpParams;
   private http: HttpClient;

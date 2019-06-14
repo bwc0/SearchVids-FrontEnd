@@ -4,6 +4,7 @@ import { UsersService } from './users.service';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Role, User, Video, RoleName } from '../profile/model/user';
 import { AuthService } from './auth/auth.service';
+import { ResponseMessage, ResponseMessageWithUser } from './response.message';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -15,6 +16,7 @@ describe('UsersService', () => {
   let video2: Video;
   let videos: Video[];
   let dummyUser: User;
+  let responseMessage: ResponseMessage;
   
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,6 +37,8 @@ describe('UsersService', () => {
     videos = [video1, video2];
 
     dummyUser = new User('testusername', 'test@email.com', 'bigbyb', roles, videos);
+
+    responseMessage = new ResponseMessageWithUser("User found with id: 1", "OK", dummyUser);
   });
 
   afterEach(() => {
@@ -54,7 +58,7 @@ describe('UsersService', () => {
       const req = httpMock.expectOne(`${service.url}1`);
       expect(req.request.method).toEqual('GET');
       
-      req.flush(dummyUser);
+      req.flush(responseMessage);
     });
   });
 
