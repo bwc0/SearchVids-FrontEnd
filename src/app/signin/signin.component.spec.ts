@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AppComponent } from '../app.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 describe('SigninComponent', () => {
   let component: SigninComponent;
@@ -13,8 +15,9 @@ describe('SigninComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule, HttpClientTestingModule, 
-        RouterTestingModule, MDBBootstrapModule.forRoot() ],
-      declarations: [ SigninComponent ]
+        RouterTestingModule, FlashMessagesModule.forRoot(), MDBBootstrapModule.forRoot() ],
+      declarations: [ SigninComponent ],
+      providers: [ AppComponent ]
     })
     .compileComponents();
   }));

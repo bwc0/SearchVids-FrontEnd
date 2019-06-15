@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SignUpInfo } from '../services/auth/signup-info';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +20,7 @@ export class SignupComponent implements OnInit {
   status: string;
   errorMessage: '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private app: AppComponent) {}
 
   ngOnInit() {}
 
@@ -44,12 +46,12 @@ export class SignupComponent implements OnInit {
       this.isSignedUp = false;
       this.isSignedUpFailed = true;
 
-      alert(data.message);
+      this.app.flashMessage(data.message, 'alert-danger', 3000);
     });
   }
 
   redirectToLoginScreen(str: string) {
-    alert(str);
+    this.app.flashMessage(str, 'alert-success', 3000);
     this.router.navigate(['login']);
   }
 }

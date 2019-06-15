@@ -5,6 +5,8 @@ import { Video } from './model/video';
 import { Video as UserVideo, User } from '../profile/model/user';
 import { UsersService } from '../services/users.service';
 import { TokenStorageService } from '../services/auth/token-storage/token-storage.service';
+import { AppComponent } from '../app.component';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -23,20 +25,11 @@ export class HomeComponent implements OnInit {
   @ViewChild('results') results: ElementRef;
   @ViewChild('favorites') favorites: ElementRef;
 
-  constructor(private youtubeService: YoutubeService, private userService: UsersService, 
-    private tokenStorage: TokenStorageService, private renderer: Renderer2) { }
+  constructor(private youtubeService: YoutubeService, private userService: UsersService, private authService: AuthService,
+    private tokenStorage: TokenStorageService, private renderer: Renderer2, private app: AppComponent) { }
 
   ngOnInit() {
-    if (this.tokenStorage.getToken()) {
-      this.roles = this.tokenStorage.getAuthorities();
-      this.roles.every(role => {
-        if (role === 'ROLE_USER') {
-          this.authority = 'user'
-          return true;
-        }
-      });
-    }
-
+    this.app.checkIfAuthenticated();
     this.makeRequest();
   }
 
@@ -131,7 +124,7 @@ export class HomeComponent implements OnInit {
     this.renderer.appendChild(p, description);
 
     // Favorite
-    if (this.tokenStorage.getToken()) {
+    if (this.authService.isAuthenticated()) {
       let favVideo = new UserVideo(video.id.videoId, video.snippet.title, video.snippet.publishedAt,
         video.snippet.description, video.snippet.thumbnails.high.url, video.snippet.channelTitle);
 
@@ -148,6 +141,7 @@ export class HomeComponent implements OnInit {
       this.renderer.listen(addVideoLink, 'click', () => {
         this.addPrivateVideoRequest(favVideo);
         this.renderer.setAttribute(addVideoLink, 'disabled', '');
+        this.app.flashMessage(`${video.snippet.title} added to your favorites`, 'alert-success', 3000);
       });
       this.renderer.appendChild(addVideoLink, addTextLink);
     }
@@ -155,7 +149,7 @@ export class HomeComponent implements OnInit {
 
   private addPrivateVideoRequest(videoToBeAdded: UserVideo) {
     let id = this.tokenStorage.getId();
-    this.userService.addVideoToFavorites(id, videoToBeAdded).subscribe(() => console.log(videoToBeAdded.title));
+    this.userService.addVideoToFavorites(id, videoToBeAdded).subscribe();
   }
 
   private checkNextAndPreviousPage(token: string) {

@@ -29,26 +29,27 @@
             <div class="md-form">
 
               <input type="text" class="form-control mb-4" name="username" [(ngModel)]="form.username" minlength="3"
-                #username="ngModel" aria-describedby="defaultRegisterFormPasswordHelpBlock" placeholder="Username"
+                #username="ngModel" aria-describedby="defaultRegisterFormUsenameHelpBlock" placeholder="Username"
                 required>
 
-                <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                <small id="defaultRegisterFormUsernameHelpBlock" class="form-text text-muted">
                   At least 3 characters
                 </small>
 
               <div *ngIf="f.submitted && username.invalid">
                 <div *ngIf="username.errors.required" class="forgot">Username is required</div>
-                <div *ngIf="password.errors.minlength" class="forgot">Username must be at least 3 characters</div>
+                <div *ngIf="username.errors.minlength" class="forgot">Username must be at least 3 characters</div>
               </div>
 
             </div>
             
             <!-- Password -->
-            <div class="md-form">
+            <div class="md-form mt-0">
 
               <input type="password" class="form-control" name="password" [(ngModel)]="form.password" minlength="6"
                 #password="ngModel" aria-describedby="defaultRegisterFormPasswordHelpBlock" placeholder="Password"
                 required>
+
               <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                 At least 6 characters
               </small>

@@ -48,3 +48,8 @@ button#searchbutton.btn {
   color: white;
 }
 
+@media (max-width: 768px) {
+  #mainbuttondiv {
+    margin-top: 5%;
+  }
+}

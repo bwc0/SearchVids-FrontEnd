@@ -35,6 +35,12 @@
 </header>
 
 <div class="container my-5 py-3">
+
+  <div *ngIf="message" class="container mt-5">
+  </div>
+
+  <flash-messages></flash-messages>
+
   <router-outlet></router-outlet>
 </div>
 

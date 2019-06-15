@@ -3,6 +3,7 @@ import { AuthLoginInfo } from '../services/auth/login-info';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenStorageService } from '../services/auth/token-storage/token-storage.service';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-signin',
@@ -18,7 +19,8 @@ export class SigninComponent implements OnInit {
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, 
+    private router: Router, private app: AppComponent) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -43,24 +45,17 @@ export class SigninComponent implements OnInit {
         this.loginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
-      
-        this.reloadPage();
+
+        this.app.flashMessage('Welcome ' + data.username, 'alert-success', 3000);
+
+        this.router.navigate(['home']);
       },
 
       error => {
         this.errorMessage = error.error.message;
-        alert('Username or password not recognized. Please try again: ' + this.errorMessage);
+        this.app.flashMessage('Username or password not recognized. Please try again: ' + this.errorMessage, 'alert-danger', 3000);
         this.loginFailed = true;
       }
     );
-  }
-
-  reloadPage() {
-    this.router.navigate(['home']);
-    
-    setTimeout(() => {
-      window.location.reload();
-      
-    }, .1)
   }
 }

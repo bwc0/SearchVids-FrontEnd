@@ -5,6 +5,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AppComponent } from '../app.component';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -12,9 +14,10 @@ describe('ProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MDBBootstrapModule.forRoot(), HttpClientTestingModule, FormsModule, 
+      imports: [MDBBootstrapModule.forRoot(), FlashMessagesModule.forRoot(), HttpClientTestingModule, FormsModule, 
         RouterTestingModule ],      
-      declarations: [ ProfileComponent ]
+      declarations: [ ProfileComponent ],
+      providers: [ AppComponent ]
     })
     .compileComponents();
   }));

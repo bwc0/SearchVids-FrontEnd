@@ -4,6 +4,7 @@ import { TokenStorageService } from '../services/auth/token-storage/token-storag
 import { Router } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { UpdateFormInfo } from './model/updateFormInfo';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
   private info: UpdateFormInfo;
 
   constructor(private token: TokenStorageService, private router: Router,
-    private userData: UsersService) {}
+    private userData: UsersService, private app: AppComponent) {}
 
   ngOnInit() {
     this.id = this.token.getId();
@@ -33,29 +34,17 @@ export class ProfileComponent implements OnInit {
 
     this.userData.updateUserById(this.id, this.info).subscribe(data => {
       if (data.status === 'OK') {
-        this.loginAfterUpdate();
+        this.token.signOut();
+        this.app.flashMessage('Please login with new username or password to confirm update', 'alert-success', 3000);
+        this.router.navigate(['login']);
       } else {
-        alert(data.message);
+        this.app.flashMessage(data.message, 'alert-danger', 3000);
       }
     });
-  }
-
-  loginAfterUpdate() {
-    this.token.signOut();
-    this.router.navigate(['login']);
-
-    setTimeout(() => {
-      alert('Please login with new username or password to confirm update');
-      window.location.reload();
-    }, .1);
   }
 
   logout() {
     this.token.signOut();
     this.router.navigate(['home']);
-
-    setTimeout(() => {
-      window.location.reload();
-    }, .1);
   }
 }
