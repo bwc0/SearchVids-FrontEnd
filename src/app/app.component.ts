@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TokenStorageService } from './services/auth/token-storage/token-storage.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -9,16 +9,17 @@ import { AuthService }  from './services/auth/auth.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   title = 'SearchVids';
   
   private roles: string[];
   private authority: string;
   message = false;
 
-  constructor(private authService: AuthService, private token: TokenStorageService, private flashMessages: FlashMessagesService, private router: Router) {}
+  constructor(private authService: AuthService, private token: TokenStorageService, 
+    private flashMessages: FlashMessagesService, private router: Router) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.checkIfAuthenticated();
   }
 

@@ -26,4 +26,8 @@ export class UsersService {
   addVideoToFavorites(id, video: Video) {
     return this.http.post(this.url + id, video);
   }
+
+  deleteProfile(id) {
+    return this.http.delete(this.url + id);
+  }
 }
