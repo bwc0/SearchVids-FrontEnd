@@ -47,4 +47,16 @@ export class ProfileComponent implements OnInit {
     this.token.signOut();
     this.router.navigate(['home']);
   }
+
+  deactivate() {
+    this.userData.deleteProfile(this.id).subscribe(() => {
+      this.app.flashMessage('Account deleted', 'alert-success', 3000);
+      this.token.signOut();
+      this.router.navigate(['home']);
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, .1);
+    });
+  }
 }
