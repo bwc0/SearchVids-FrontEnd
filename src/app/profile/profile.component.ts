@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   form: any = {};
   user: User;
   id: any;
+  errorMessage = '';
   private info: UpdateFormInfo;
 
   constructor(private token: TokenStorageService, private router: Router,
@@ -58,5 +59,17 @@ export class ProfileComponent implements OnInit {
         window.location.reload();
       }, .1);
     });
+  }
+
+  removeVideo(videoId: string) {
+    this.userData.removeVideo(this.id, videoId).subscribe(() => {
+      setTimeout(() => {
+        window.location.reload();
+      }, .1);
+
+    }, error => {
+        this.errorMessage = error.error.message;
+        this.app.flashMessage(this.errorMessage, 'alert-danger', 3000);
+    });     
   }
 }
