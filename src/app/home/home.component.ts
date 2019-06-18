@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   query: string;
   result: Result;
   user: User;
-  errorMessage: string;
+  errorMessage = '';
   roles: string[];
   authority: string;
 
