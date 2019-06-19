@@ -2,6 +2,28 @@
   width: 45%;
 }
 
+.container.search {
+  margin: 0 0 0 10%;
+}
+
+.form-inline {
+  margin-bottom: 0%;
+}
+
+.active-pink-2 input[type=text] {
+  font-size: 1.5em;
+  padding-left: .5%;
+}
+
+button#searchbutton.btn {
+  box-shadow: none;
+  padding-left: 5px;
+}
+
+.active-pink-2 .fa {
+  color: black;
+}
+
 .forgot {
   color: #8B0000;
 }

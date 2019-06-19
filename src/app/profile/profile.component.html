@@ -1,4 +1,6 @@
 <div *ngIf="id; else signin" class="container mt-3">
+
+  <h1 class="ml-2 mt-3">Profile<hr></h1>
   
   <div class="row mx-auto py-4">
 
@@ -117,9 +119,26 @@
 
   </div>
 
+  <h2 class="ml-2 mt-3">Saved Videos <hr></h2>
+
+  <div class="container search">
+
+    <form class="form-inline md-form form-sm active-pink-2" id="searchform" name="form">
+
+      <input name="query" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search Favorites.."
+        aria-label="Search" id="query" [(ngModel)]="query" mdbInput>
+
+      <button type="submit" id="searchbutton" class="btn">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+
+    </form>
+
+  </div>
+
   <div class="row mx-auto">
 
-    <div class="col-md-4" *ngFor="let video of user?.videos">
+    <div class="col-md-4" *ngFor="let video of user?.videos | filter:query | paginate: { itemsPerPage: 9, currentPage: p }">
 
       <mdb-card cascade="true" wider="true" class="my-2">
 
@@ -165,6 +184,16 @@
       </mdb-card>
 
     </div>
+
+  </div>
+
+  <div class="row mx-auto mt-5">
+
+      <ul class="pagination mx-auto">
+
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+      </ul>
 
   </div>
 
