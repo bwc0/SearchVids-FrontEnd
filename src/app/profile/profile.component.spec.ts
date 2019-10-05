@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AppComponent } from '../app.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -15,7 +17,7 @@ describe('ProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MDBBootstrapModule.forRoot(), FlashMessagesModule.forRoot(), HttpClientTestingModule, FormsModule, 
-        RouterTestingModule ],      
+        RouterTestingModule, NgxPaginationModule, Ng2SearchPipeModule ],      
       declarations: [ ProfileComponent ],
       providers: [ AppComponent ]
     })

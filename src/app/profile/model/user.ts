@@ -3,6 +3,7 @@ export class User {
     username: string;
     email: string;
     password: string;
+    imageDetails: ImageDetails;
     roles: Role[];
     videos: Video[];
 
@@ -47,4 +48,17 @@ export class Video {
 
 export enum RoleName {
     ROLE_USER 
+}
+
+export class ImageDetails {
+    data: [];
+    fileName: string;
+    fileType: string;
+
+    constructor(data: [], fileName: string, fileType: string) {
+        this.data = data;
+        this.fileName = fileName;
+        this.fileType = fileType;
+    }
+
 }

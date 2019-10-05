@@ -18,6 +18,7 @@ describe('HomeComponent', () => {
       declarations: [ HomeComponent ],
       providers: [ AppComponent ]
     })
+    
     .compileComponents();
   }));
 

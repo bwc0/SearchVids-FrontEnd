@@ -2,14 +2,17 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TokenStorageService } from './services/auth/token-storage/token-storage.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthService }  from './services/auth/auth.service'
+import { AuthService }  from './services/auth/auth.service';
+import { delay } from 'rxjs/operators';
+import { del } from 'selenium-webdriver/http';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit{
   title = 'SearchVids';
   
   private roles: string[];
@@ -19,8 +22,11 @@ export class AppComponent implements AfterViewInit {
   constructor(private authService: AuthService, private token: TokenStorageService, 
     private flashMessages: FlashMessagesService, private router: Router) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.checkIfAuthenticated();
+  }
+  ngAfterViewInit() {
+    
   }
 
   onClick() {
@@ -36,6 +42,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   checkIfAuthenticated() {
+
     if (this.authService.isAuthenticated()) {
       this.roles = this.token.getAuthorities();
       this.roles.every(role => {

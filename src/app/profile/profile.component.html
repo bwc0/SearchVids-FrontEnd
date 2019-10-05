@@ -14,8 +14,58 @@
 
               <div class="avatar" style="margin-top: -60px">
 
-                <img src="https://www.gravatar.com/avatar/96ab8d17af991061093921a6ff3df958"
-                  class="rounded-circle z-depth-0" alt="avatar-image">
+                <button type="button" data-toggle="modal" data-target="#upload" style="border: none;"
+                  mdbWavesEffect>
+
+                    <img [src]="sanitizerImageUrl" onerror="this.onerror=null; 
+                        this.src ='https:\//www.gravatar.com/avatar/96ab8d17af991061093921a6ff3df958';"
+                        class="rounded-circle z-depth-0" alt="avatar-image">
+
+                </button>
+
+                <div mdbModal #frame="mdbModal" class="modal fade left" id="upload" tabindex="-1" role="dialog"
+                  aria-labelledby="myModalLabel" aria-hidden="true">
+
+                  <div class="modal-dialog" role="document">
+
+                    <div class="modal-content">
+
+                      <div class="modal-header text-center">
+
+                        <h4 class="modal-title w-100 font-weight-bold">Upload image</h4>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                          (click)="frame.hide()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+
+                      </div>
+
+                      <div class="modal-body mx-3">
+                        
+                        <div *ngIf="selectedFile" class="progress">
+
+                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                            attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100"
+                            [ngStyle]="{width:progress.percentage+'%'}">
+
+                            {{progress.percentage}}%
+
+                          </div>
+                        </div>
+
+                        <label class="btn">
+                          <input type="file" id="file" (change)="selectFile($event)">
+                        </label>
+
+                        <button class="my-4 btn w-75" [disabled]="!list" (click)="upload()">Upload</button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
 
               </div>
 
@@ -32,7 +82,7 @@
               <p class="forgot"><a data-toggle="modal" data-target="#deactivate"
                 (click)="frame.show()" mdbWavesEffect>Delete Account</a></p>
             
-              <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+              <div mdbModal #frame="mdbModal" class="modal fade left" id="deactivate" tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel" aria-hidden="true">
 
                 <div class="modal-dialog" role="document">
@@ -119,26 +169,36 @@
 
   </div>
 
-  <h2 class="ml-2 mt-3">Saved Videos <hr></h2>
+  <div class="row mx-auto py-2">
 
-  <div class="container search">
+    <div class="col-md-5">
+      <h2 class="ml-2 mt-3">Saved Videos</h2>
+    </div>
+      
+    
+    <div class="col-md-7">
+      <div class="container">
 
-    <form class="form-inline md-form form-sm active-pink-2" id="searchform" name="form">
+        <form class="form-inline md-form form-sm mt-1 active-pink-2" id="searchform" name="form">
 
-      <input name="query" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search Favorites.."
-        aria-label="Search" id="query" [(ngModel)]="query" mdbInput>
+          <input name="query" class="form-control form-control-sm mr-3 w-100" type="text"
+            placeholder="Search Favorites.." aria-label="Search" id="query" [(ngModel)]="query" mdbInput>
 
-      <button type="submit" id="searchbutton" class="btn">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
+          <!-- <button type="submit" id="searchbutton" class="btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button> -->
 
-    </form>
+        </form>
 
+      </div>
+    </div>
   </div>
+
+
 
   <div class="row mx-auto">
 
-    <div class="col-md-4" *ngFor="let video of user?.videos | filter:query | paginate: { itemsPerPage: 9, currentPage: p }">
+    <div class="col-md-4" *ngFor="let video of user?.videos | filter:query | paginate: { itemsPerPage: 3, currentPage: p }">
 
       <mdb-card cascade="true" wider="true" class="my-2">
 
@@ -199,7 +259,6 @@
 
 </div>
 
-
 <ng-template #signin>
 
   <div class="container mt-5">
@@ -208,5 +267,3 @@
   </div>
 
 </ng-template>
-
-

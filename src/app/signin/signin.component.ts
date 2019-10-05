@@ -49,6 +49,10 @@ export class SigninComponent implements OnInit {
         this.app.flashMessage('Welcome ' + data.username, 'alert-success', 3000);
 
         this.router.navigate(['home']);
+        
+        setTimeout(() => {
+          window.location.reload();
+        }, .1);
       },
 
       error => {

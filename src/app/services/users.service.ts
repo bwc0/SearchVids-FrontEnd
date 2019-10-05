@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video } from '../profile/model/user';
 import { UpdateFormInfo } from '../profile/model/updateFormInfo';
-import { ResponseMessageWithUser } from './response.message';
+import { ResponseMessageWithUser, ResponseMessage } from './response.message';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +23,15 @@ export class UsersService {
     return this.http.patch<ResponseMessageWithUser>(this.url + id, info);
   } 
 
-  addVideoToFavorites(id: string, video: Video) {
-    return this.http.post(this.url + id, video);
+  addVideoToFavorites(id: number, video: Video): Observable<ResponseMessageWithUser> {
+    return this.http.post<ResponseMessageWithUser>(this.url + id, video);
   }
 
   deleteProfile(id: number) {
     return this.http.delete(this.url + id);
   }
 
-  removeVideo(id: number, videoId: string) {
-    return this.http.delete(this.url + id + '/video/' + videoId);
+  removeVideo(id: number, videoId: string): Observable<ResponseMessage> {
+    return this.http.delete<ResponseMessage>(this.url + id + '/video/' + videoId);
   }
 }

@@ -141,7 +141,6 @@ export class HomeComponent implements OnInit {
       this.renderer.listen(addVideoLink, 'click', () => {
         this.addPrivateVideoRequest(favVideo);
         this.renderer.setAttribute(addVideoLink, 'disabled', '');
-        this.app.flashMessage(`${video.snippet.title} added to your favorites`, 'alert-success', 3000);
       });
       this.renderer.appendChild(addVideoLink, addTextLink);
     }
@@ -149,7 +148,10 @@ export class HomeComponent implements OnInit {
 
   private addPrivateVideoRequest(videoToBeAdded: UserVideo) {
     let id = this.tokenStorage.getId();
-    this.userService.addVideoToFavorites(id, videoToBeAdded).subscribe();
+
+    this.userService.addVideoToFavorites(+id, videoToBeAdded).subscribe(data => {
+      this.app.flashMessage(`${data.message}`, 'alert-success', 3000);
+    });
   }
 
   private checkNextAndPreviousPage(token: string) {
